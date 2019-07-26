@@ -1,6 +1,8 @@
 # live-tensorflowjs-charts
 tensorflowjs traffic analytics flask google charts
 
+![Screenshot](liveShot.png)
+
 
 Using Tensorflow.js to count cars, trucks, pedestrians from live webcam feed and charting data live on a Flask server using Google Charts
 
