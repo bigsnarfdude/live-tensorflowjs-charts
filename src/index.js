@@ -74,18 +74,46 @@ class App extends React.Component {
     predictions.forEach(prediction => {
       const x = prediction.bbox[0];
       const y = prediction.bbox[1];
-      console.log(prediction.class);
+      //console.log(prediction.class);
 
       var socket = io('http://localhost:8000');
-      socket.emit('clientEvent',
-          { e : 5,
-            walk : 4,
-            fast_walk : 3,
-            walk_time : 2,
-            fast_walk_time : 1,
-            rest_time : 0
-          }
-      );
+
+      if (prediction.class == 'person') {
+
+      		socket.emit('clientEvent',
+          		{ e : 0,
+            		walk : 0,
+            		fast_walk : 0,
+            		walk_time : 1,
+            		fast_walk_time : 0,
+            		rest_time : 0
+          		}
+      		);
+      } else if (prediction.class == 'car') {
+               socket.emit('clientEvent',
+                        { e : 1,
+                        walk : 0,
+                        fast_walk : 0,
+                        walk_time : 0,
+                        fast_walk_time : 0,
+                        rest_time : 0
+                        }
+                );
+      }  else if (prediction.class == 'truck') {
+               socket.emit('clientEvent',
+                        { e : 0,
+                        walk : 0,
+                        fast_walk : 0,
+                        walk_time : 0,
+                        fast_walk_time : 1,
+                        rest_time : 0
+                        }
+                );
+      } else {
+	      ;//pass
+
+      }
+
 
       // Draw the text last to ensure it's on top.
       ctx.fillStyle = "#000000";
